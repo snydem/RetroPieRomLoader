@@ -1,5 +1,7 @@
 import socket
 import sys
+import os
+
 # insert helper loader
 sys.path.append('/home/snydem/Documents/RomLoader/lib');
 import messages
@@ -37,16 +39,16 @@ while True:
     command = rec_string[0:8];
 
 
-    match command:
-        # The case that the client wants to send us a ROM to load to the pi
-        case "ROM UPDATE":
-            print("received ROM UPDATE command from client");
+    # The case that the client wants to send us a ROM to load to the pi
+    if command == "ROM UPDATE":
+        print("received ROM UPDATE command from client");
 
         # The case that the client just wants to see what ROMS currently exist on the pi
-        case "ROM STATUS":
-            print("received ROM STATUS command from client");
+    elif command == "ROM STATUS":
+        print("received ROM STATUS command from client");
 
-            # Print the ROM file structure to show the user which ROMS are present on the machine
+        # Print the ROM file structure to show the user which ROMS are present on the machine
+        os.listdir(path='.')
             
-        case _:
-            print("unrecognized command:" command);
+    else:
+        print("unrecognized command:" + str(command));
